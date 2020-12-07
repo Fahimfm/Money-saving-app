@@ -316,16 +316,6 @@ app.json_encoder = CustomJSONEncoder
 #     collecting_date = db.Column(db.DateTime, server_default=db.func.now()) # needs to be modified
 #     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
-#     # Method to save user to DB
-#     def save_to_db(self):
-#         db.session.add(self)
-#         db.session.commit()
-
-#     # Method to remove user from DB
-#     def remove_from_db(self):
-#         db.session.delete(self)
-#         db.session.commit()
-
 #     # Class method which finds group from DB by id
 #     @classmethod
 #     def find_group_by_id(cls, _id):
