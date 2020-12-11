@@ -250,7 +250,38 @@ def handle_user(user_id):
     elif request.method == 'DELETE':
         user.remove_from_db()
         return {"message": f"User {user.email} successfully deleted."}
-
+@app.route('/pay',methods=['POST', 'GET'])
+def payment():
+    try:
+        data = request.get_json()
+        result = stripe.PaymentMethod.create(
+        type="card",
+        card={
+        "number": data['number'],
+        "exp_month": data['exp_month'],
+        "exp_year": data['exp_year'],
+        "cvc": data['cvc'],
+        },
+        )
+        print(result)
+        final = stripe.PaymentIntent.create(
+        payment_method=result['id'],
+        amount=data['amount'],
+        currency="eur",
+        payment_method_types=["card"],
+        )
+        print("********************************************************")
+        print(final)
+        last = stripe.PaymentIntent.confirm(
+        final['id'],
+        )
+        print("*************************************")
+        print(last)
+        amount= data['amount']//100
+        
+    except Exception as e:
+        return json.dumps(f'The operation can not be processed because {e}')
+    return jsonify({'message': f'You have successfully paid {amount}.00 EUR!'})
 
 if __name__ == '__main__':
     app.run()
