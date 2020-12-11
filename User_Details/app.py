@@ -250,6 +250,7 @@ def handle_user(user_id):
     elif request.method == 'DELETE':
         user.remove_from_db()
         return {"message": f"User {user.email} successfully deleted."}
+
 @app.route('/pay',methods=['POST', 'GET'])
 def payment():
     try:
