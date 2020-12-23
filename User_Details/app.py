@@ -6,6 +6,7 @@ import jwt
 from flask import Flask, jsonify, request, Response, make_response
 from flask_migrate import Migrate
 from flask_ngrok import run_with_ngrok
+
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import stripe
@@ -113,6 +114,19 @@ class UserInfo(db.Model):
     def remove_from_db(self):
         db.session.delete(self)
         db.session.commit()
+
+class CustomJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, UserInfo):
+            return {
+                'id': obj.id,
+                'full_name': obj.full_name,
+                "address": obj.address,
+            }
+        return super(CustomJSONEncoder, self).default(obj)
+
+
+app.json_encoder = CustomJSONEncoder
 
 
 def token_required(f):
