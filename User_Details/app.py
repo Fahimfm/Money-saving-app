@@ -6,7 +6,7 @@ import jwt
 from flask import Flask, jsonify, request, Response, make_response
 from flask_migrate import Migrate
 from flask_ngrok import run_with_ngrok
-
+from json import JSONEncoder
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import stripe
