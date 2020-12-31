@@ -203,6 +203,17 @@ def get_current_user(current_user):
         return make_response(jsonify({"id": current_user.id}), 200)
     return make_response(jsonify({'message': 'ERROR: cant get current user'}), 403)
 
+@app.route('/users/get/', methods=['GET'])
+@token_required
+def get_user_info(user_id, user):
+    _user = Users.query.filter_by(id=user).first()
+    user_in = UserInfo.query.filter_by(user_id=_user.id).first()
+    if not _user or not user_in:
+        return make_response(jsonify({'message': 'ERROR: cant get current user'}), 403)
+
+    return make_response(jsonify({"full_name": user_in.full_name}), 200)
+
+
 
 @app.route('/person', methods=['POST', 'GET'])
 @token_required
