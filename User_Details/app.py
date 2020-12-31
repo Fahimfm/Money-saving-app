@@ -203,7 +203,7 @@ def get_current_user(current_user):
         return make_response(jsonify({"id": current_user.id}), 200)
     return make_response(jsonify({'message': 'ERROR: cant get current user'}), 403)
 
-@app.route('/users/get/', methods=['GET'])
+@app.route('/users/get/<int:user>', methods=['GET'])
 @token_required
 def get_user_info(user_id, user):
     _user = Users.query.filter_by(id=user).first()
