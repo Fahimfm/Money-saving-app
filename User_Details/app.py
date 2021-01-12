@@ -28,8 +28,6 @@ app.config['SECRET_KEY'] = 'this_is_a_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{user}:{password}@{host}/{database}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-login_manager = LoginManager()
-login_manager.init_app(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -308,6 +306,20 @@ def payment():
     except Exception as e:
         return json.dumps(f'The operation can not be processed because {e}')
     return jsonify({'message': f'You have successfully paid {amount}.00 EUR!'})
+
+#Create a payment method
+def paymentMethod(name, email, iban):
+    result = stripe.PaymentMethod.create(
+    type="sepa_debit",
+    billing_details={
+    "name": name,
+    "email": email,    
+    },
+    sepa_debit={
+    "iban": iban,
+    },
+    )
+    return result
 
 if __name__ == '__main__':
     app.run()
