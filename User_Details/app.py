@@ -321,5 +321,16 @@ def paymentMethod(name, email, iban):
     )
     return result
 
+#Create Payment Intent
+def paymentIntentCreate(pm,customer,amount):
+    final = stripe.PaymentIntent.create(
+    payment_method=pm,
+    customer=customer,
+    amount=amount,
+    currency="eur",
+    payment_method_types=["sepa_debit"],
+    )
+    return final
+
 if __name__ == '__main__':
     app.run()
