@@ -332,5 +332,17 @@ def paymentIntentCreate(pm,customer,amount):
     )
     return final
 
+#Confirm the Intent
+def paymentIntentConfirm(p_id):
+    last = stripe.PaymentIntent.confirm(
+    p_id,
+    mandate_data={
+    "customer_acceptance": {
+    "type": "offline",
+    }
+    },
+    )
+    return last
+
 if __name__ == '__main__':
     app.run()
