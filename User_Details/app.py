@@ -344,5 +344,10 @@ def paymentIntentConfirm(p_id):
     )
     return last
 
+#Retrieve Payment method
+def getPaymentmethod(pm):
+    result = stripe.PaymentMethod.retrieve(pm)
+    return result
+
 if __name__ == '__main__':
     app.run()
