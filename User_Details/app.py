@@ -365,5 +365,10 @@ def create_customer(name, address, city, postcode, email, pm, phone ):
     )
     return result
 
+#Get pm by id
+def get_pm_by_id(id):
+    gets = Users.query.filter_by(id=id).first()
+    return gets.customer_id
+
 if __name__ == '__main__':
     app.run()
