@@ -370,5 +370,10 @@ def get_pm_by_id(id):
     gets = Users.query.filter_by(id=id).first()
     return gets.customer_id
 
+# Get the customer
+def get_customer_by_customer_id(customer_id):
+    customer = stripe.Customer.retrieve(customer_id)
+    return customer
+
 if __name__ == '__main__':
     app.run()
