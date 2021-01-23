@@ -349,20 +349,12 @@ def getPaymentmethod(pm):
     result = stripe.PaymentMethod.retrieve(pm)
     return result
 
-#Create the customer
-def create_customer(name, address, city, postcode, email, pm, phone ):
-    result = stripe.Customer.create(
-    name=name,
-    email=email,
-    address={
-    "line1": address,
-    "city": city,
-    "country": "Netherlands",
-    "postal_code": postcode,
-    },
-    payment_method= pm,
-    phone=phone,
-    )
+# Create the customer
+def create_customer(name, address, city, postcode, email, pm, phone):
+    result = stripe.Customer.create(name=name, email=email,
+                                    address={"line1": address, "city": city,
+                                             "country": "Netherlands", "postal_code": postcode},
+                                    payment_method=pm, phone=phone)
     return result
 
 #Get pm by id
