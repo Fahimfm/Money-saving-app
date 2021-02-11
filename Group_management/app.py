@@ -419,6 +419,9 @@ class GroupMembers(db.Model):
     def __repr__(self):
         return '<id:{} group:{} user:{}>'.format(self.id, self.group_id, self.user_id)
 
+@app.route('/termsAndConditions', methods=['GET'])
+def get_terms_and_conditions():
+    return render_template('termsAndConditions.html')
 
 if __name__ == '__main__':
     db.create_all()
