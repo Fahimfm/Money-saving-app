@@ -419,6 +419,16 @@ class GroupMembers(db.Model):
     def __repr__(self):
         return '<id:{} group:{} user:{}>'.format(self.id, self.group_id, self.user_id)
 
+class TransactionHistory(db.Model):
+    __tablename__ = 'transaction_history'
+    id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer)
+    member_id = db.Column(db.Integer)
+    transaction_succeed = db.Column(db.Boolean, default=False)
+    transaction_id = db.Column(db.String())
+    transferred_amount = db.Column(db.Float)
+    created_at = db.Column(db.DateTime, default=datetime.date.today)
+
 @app.route('/termsAndConditions', methods=['GET'])
 def get_terms_and_conditions():
     return render_template('termsAndConditions.html')
